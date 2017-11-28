@@ -5,6 +5,10 @@ For a complete walkthrough of creating this type of bot see the article at
 https://aka.ms/abs-node-luis
 -----------------------------------------------------------------------------*/
 "use strict";
+
+// This loads the environment variables from the .env file
+require('dotenv-extended').load();
+
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var path = require('path');
