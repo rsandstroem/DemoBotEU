@@ -12,8 +12,16 @@ module.exports = {
                 var info = JSON.parse(body);
                 console.log(info);
                 session.send(info.quote.text);
-                session.endDialog();
+                builder.Prompts.confirm(session, 'How about another one ${session.privateConversationData.username}?');
             });
+        },
+        function (session, results) {
+            if (results.response.entity != 'Yes') {
+                session.endDialog("OK, enough Scooter for now.");
+            }
+            else {
+                session.replaceDialog('/quoteScooter');
+            }
         }
     ]
 }
