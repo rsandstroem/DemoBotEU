@@ -4,7 +4,7 @@ var botbuilder_azure = require("botbuilder-azure");
 module.exports = {
     Label: 'Ask name',
     Dialog: [
-        function (session, results) {            
+        function (session, results) {
             builder.Prompts.text(session, 'What is your name?');
         },
         function (session, results) {

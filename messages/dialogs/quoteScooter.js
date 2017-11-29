@@ -6,7 +6,7 @@ var request = require('request');
 module.exports = {
     Label: 'Quote Scooter',
     Dialog: [
-        function (session) {            
+        function (session) {
             session.send("Quoting the guru:");
             request('https://howmuchisthe.fish/json/random', function (error, response, body) {
                 var info = JSON.parse(body);

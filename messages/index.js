@@ -33,7 +33,9 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v2.0/apps/' + luisApp
 
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
-var intents = new builder.IntentDialog({ recognizers: [recognizer] });
+var intents = new builder.IntentDialog({
+    recognizers: [recognizer]
+});
 /*
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
@@ -49,31 +51,31 @@ bot.dialog('/askGenericYesNo', di_askGenericYesNo.Dialog);
 bot.dialog('/askName', di_askName.Dialog);
 bot.dialog('/tellJoke', di_tellJoke.Dialog);
 bot.dialog('/quoteScooter', di_quoteScooter.Dialog);
-   
+
 // Starting a new conversation will trigger this message
 // updating following the guidance from MS
-bot.on('conversationUpdate', 
-function (message) {
+bot.on('conversationUpdate',
+    function (message) {
 
-    // is this system message that the bot joined?
-    // we expect the bot to show up first, and this should trigger the message
-    if (message.membersAdded[0].id != message.address.bot.id) {
-        // if it's not the bot, ignore the whole 'conversationUpdate'          
-        return; // !!! this still does not work on the higly async web chat, and the code after return is executed nonetheless !!!
-    };
+        // is this system message that the bot joined?
+        // we expect the bot to show up first, and this should trigger the message
+        if (message.membersAdded[0].id != message.address.bot.id) {
+            // if it's not the bot, ignore the whole 'conversationUpdate'          
+            return; // !!! this still does not work on the higly async web chat, and the code after return is executed nonetheless !!!
+        };
 
-    var greetingText = 'Welcome to the DemoBot!';
+        var greetingText = 'Welcome to the DemoBot!';
 
-    var reply = new builder.Message()
-        .textFormat(builder.TextFormat.xml)
-        .address(message.address)
-        .text(greetingText);
+        var reply = new builder.Message()
+            .textFormat(builder.TextFormat.xml)
+            .address(message.address)
+            .text(greetingText);
 
-    bot.send(reply);
+        bot.send(reply);
 
-    bot.beginDialog(message.address, '/');
+        bot.beginDialog(message.address, '/');
 
-});
+    });
 
 /*
 #### ##    ## #### ######## 
@@ -89,14 +91,14 @@ intents.onBegin(function (session) {
     if (!session.privateConversationData.existingSession) {
         session.privateConversationData.existingSession = true;
         //session.privateConversationData.usr3dialogPresented = false;
-        
+
         // new variables for simplified contact entry: 
         //session.privateConversationData.fullname = "";
         //session.privateConversationData.fullcontact = "";
 
         // usr3Questions are the USER'S ANSWERS (e.g. holding = true/false) to the questions in Auswirkungen dialog
         //session.privateConversationData.usr3Questions = {};
-        
+
         // usr3Answers are the BOT'S ANSWERS corresponding to combinations of USER'S ANSWERS
         //session.privateConversationData.usr3Answers = {};
 
@@ -111,7 +113,7 @@ intents.onBegin(function (session) {
         //});
 
         session.beginDialog('/askName');
-        
+
     } else {
 
         // !!!!!!!!!!!!!!!! here we need to start a general dialog (show me glossary or effects ????)
@@ -150,21 +152,22 @@ intents.matches('Scooter', function (session) {
 });
 
 // default back to root dialog
-intents.onDefault([(session) => {    
-    console.log("Default dialog");     
+intents.onDefault([(session) => {
+    console.log("Default dialog");
     session.beginDialog('/');
 }]);
 
-bot.dialog('/', intents);    
+bot.dialog('/', intents);
 
 if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
-    server.listen(3978, function() {
+    server.listen(3978, function () {
         console.log('test bot endpont at http://localhost:3978/api/messages');
     });
-    server.post('/api/messages', connector.listen());    
+    server.post('/api/messages', connector.listen());
 } else {
-    module.exports = { default: connector.listen() }
+    module.exports = {
+        default: connector.listen()
+    }
 }
-
