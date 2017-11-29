@@ -3,16 +3,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach",
+            "port": 5858
+        },
+        {
             "name": "Launch",
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/index.js",
             "cwd": "${workspaceRoot}",
-            "env": {
-                "NODE_ENV": "development",
-                "LuisAppId": "",
-                "LuisAPIKey": ""
-            }
+            "port": 5858
         }
     ]
 }
