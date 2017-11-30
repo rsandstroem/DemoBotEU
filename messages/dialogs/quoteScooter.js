@@ -6,7 +6,7 @@ var request = require('request');
 module.exports = {
     Label: 'Quote Scooter',
     Dialog: [
-        function (session) {
+        function (session, args) {
             session.send("Quoting the guru:");
             request('https://howmuchisthe.fish/json/random', function (error, response, body) {
                 var info = JSON.parse(body);
@@ -17,12 +17,12 @@ module.exports = {
                 builder.Prompts.confirm(session, message);
             });
         },
-        function (session, results) {
-            if (results.response.entity != 'Yes') {
-                session.endDialog("OK, enough Scooter for now.");
+        function (session, args, results) {
+            if (args.response) {
+                session.replaceDialog('/quoteScooter');
             }
             else {
-                session.replaceDialog('/quoteScooter');
+                session.endDialog("OK, enough Scooter for now.");
             }
         }
     ]
