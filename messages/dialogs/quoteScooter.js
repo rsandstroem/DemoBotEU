@@ -12,7 +12,9 @@ module.exports = {
                 var info = JSON.parse(body);
                 console.log(info);
                 session.send(info.quote.text);
-                builder.Prompts.confirm(session, 'How about another one ${session.privateConversationData.username}?');
+		username = session.privateConversationData.username;
+                const message = "How about another one " + username+ "?";
+                builder.Prompts.confirm(session, message);
             });
         },
         function (session, results) {
