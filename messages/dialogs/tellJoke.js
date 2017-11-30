@@ -13,8 +13,18 @@ module.exports = {
                 var info = JSON.parse(body);
                 console.log(info);
                 session.send(info.value);
-                session.endDialog();
+                const message = "I have a better one. Do you want to hear it?";
+                builder.Prompts.confirm(session, message);
             });
+        },
+        function (session, args, results) {
+            if (args.response) {
+                // Tell another one by restarting the dialog.
+                session.replaceDialog('/tellJoke');
+            }
+            else {
+                session.endDialog("You are right, " + session.privateConversationData.username + ", it was not that funny. Let's do something else.");
+            }
         }
     ]
 }
