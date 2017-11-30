@@ -13,6 +13,13 @@ var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var path = require('path');
 
+// Connection to a remote NoSQL database Azure Table Storage
+var tableName = process.env['TableName'];
+var storageName = process.env['TableStorageName']; // Obtain from Azure Portal
+var storageKey = process.env['AzureTableKey']; // Obtain from Azure Portal
+var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, storageName, storageKey);
+var tableStorage = new botbuilder_azure.AzureBotStorage({gzipData: false}, azureTableClient);
+
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
@@ -22,7 +29,7 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
-var bot = new builder.UniversalBot(connector);
+var bot = new builder.UniversalBot(connector).set('storage', tableStorage);
 
 // Make sure you add code to validate these fields
 var luisAppId = process.env.LuisAppId;
