@@ -73,54 +73,9 @@ bot.on('conversationUpdate',
 
         bot.send(reply);
 
-        bot.beginDialog(message.address, '/');
+        bot.beginDialog(message.address, '/askName');
 
     });
-
-/*
-#### ##    ## #### ######## 
- ##  ###   ##  ##     ##    
- ##  ####  ##  ##     ##    
- ##  ## ## ##  ##     ##    
- ##  ##  ####  ##     ##    
- ##  ##   ###  ##     ##    
-#### ##    ## ####    ##    
-*/
-
-intents.onBegin(function (session) {
-    if (!session.privateConversationData.existingSession) {
-        session.privateConversationData.existingSession = true;
-        //session.privateConversationData.usr3dialogPresented = false;
-
-        // new variables for simplified contact entry: 
-        //session.privateConversationData.fullname = "";
-        //session.privateConversationData.fullcontact = "";
-
-        // usr3Questions are the USER'S ANSWERS (e.g. holding = true/false) to the questions in Auswirkungen dialog
-        //session.privateConversationData.usr3Questions = {};
-
-        // usr3Answers are the BOT'S ANSWERS corresponding to combinations of USER'S ANSWERS
-        //session.privateConversationData.usr3Answers = {};
-
-        // create variables that will hold user's answers true/false, set them to empty
-        //Object.keys(usr3QuestionsDB).forEach(function (key) {
-        //    session.privateConversationData.usr3Questions[key] = "";
-        //});
-
-        // create variables that will hold bot's detailed answers
-        //Object.keys(usr3AnswersDB).forEach(function (key) {
-        //    session.privateConversationData.usr3Answers[key] = {presented: false, active: false};
-        //});
-
-        session.beginDialog('/askName');
-
-    } else {
-
-        // !!!!!!!!!!!!!!!! here we need to start a general dialog (show me glossary or effects ????)
-        console.log("End");
-        session.send("What else would you like to know?");
-    }
-});
 
 // for debug purposes
 intents.matches(/^version/i, function (session) {
@@ -154,6 +109,7 @@ intents.matches('Scooter', function (session) {
 // default back to root dialog
 intents.onDefault([(session) => {
     console.log("Default dialog");
+    session.send("Here is some helpful message... eventually");
     session.beginDialog('/');
 }]);
 
