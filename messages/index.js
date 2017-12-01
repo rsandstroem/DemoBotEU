@@ -67,7 +67,7 @@ bot.dialog('/quoteScooter', di_quoteScooter.Dialog);
 // Starting a new conversation will trigger this message
 // updating following the guidance from MS
 bot.on('conversationUpdate',
-    function (message, session) {
+    function (message) {
 
         // is this system message that the bot joined?
         // we expect the bot to show up first, and this should trigger the message
@@ -77,17 +77,24 @@ bot.on('conversationUpdate',
         };
 
         var greetingText = 'Welcome to the DemoBot!';
-
         var reply = new builder.Message()
             .textFormat(builder.TextFormat.xml)
             .address(message.address)
             .text(greetingText);
-
         bot.send(reply);
+        bot.beginDialog(message.address, '/');
+    }
+);
 
-        bot.beginDialog(message.address, '/askName');
 
-    });
+intents.onBegin(function (session) {
+    if (!session.privateConversationData.existingSession) {
+        session.privateConversationData.existingSession = true;
+        session.beginDialog('/askName');
+    } else {
+        session.send("What else would you like to discuss?");
+    }
+});
 
 // for debug purposes
 intents.matches(/^version/i, function (session) {
