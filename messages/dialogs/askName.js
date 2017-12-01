@@ -11,6 +11,7 @@ module.exports = {
             if (results.response) {
                 session.userData.username = results.response;
                 session.save();
+                console.log(session.userData.username);
                 session.endDialog("Hello %s, I am pleased to meet you.", session.userData.username);
             }
         }
