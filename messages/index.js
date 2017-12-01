@@ -31,7 +31,8 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
-var bot = new builder.UniversalBot(connector).set('storage', tableStorage);
+var bot = new builder.UniversalBot(connector).set('storage', new builder.MemoryBotStorage());
+//var bot = new builder.UniversalBot(connector).set('storage', tableStorage);
 
 // Make sure you add code to validate these fields
 var luisAppId = process.env.LuisAppId;
