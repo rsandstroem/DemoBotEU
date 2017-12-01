@@ -12,16 +12,15 @@ module.exports = {
                 var info = JSON.parse(body);
                 console.log(info);
                 session.send(info.quote.text);
-		username = session.privateConversationData.username;
-                const message = "How about another one " + username+ "?";
+                var username = session.userData.username;
+                const message = "How about another one " + username + "?";
                 builder.Prompts.confirm(session, message);
             });
         },
         function (session, args, results) {
             if (args.response) {
                 session.replaceDialog('/quoteScooter');
-            }
-            else {
+            } else {
                 session.endDialog("OK, enough Scooter for now.");
             }
         }

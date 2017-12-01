@@ -6,7 +6,7 @@ var request = require('request');
 module.exports = {
     Label: 'Tell joke',
     Dialog: [
-        function (session) {            
+        function (session) {
             console.log("Telling a joke");
             session.send("Hmm... how about this one:");
             request('https://api.chucknorris.io/jokes/random', function (error, response, body) {
@@ -21,9 +21,8 @@ module.exports = {
             if (args.response) {
                 // Tell another one by restarting the dialog.
                 session.replaceDialog('/tellJoke');
-            }
-            else {
-                session.endDialog("You are right, " + session.privateConversationData.username + ", it was not that funny. Let's do something else.");
+            } else {
+                session.endDialog("You are right, " + session.userData.username + ", it was not that funny. Let's do something else.");
             }
         }
     ]

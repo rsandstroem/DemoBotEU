@@ -18,7 +18,9 @@ var tableName = process.env['TableName'];
 var storageName = process.env['TableStorageName']; // Obtain from Azure Portal
 var storageKey = process.env['AzureTableKey']; // Obtain from Azure Portal
 var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, storageName, storageKey);
-var tableStorage = new botbuilder_azure.AzureBotStorage({gzipData: false}, azureTableClient);
+var tableStorage = new botbuilder_azure.AzureBotStorage({
+    gzipData: false
+}, azureTableClient);
 
 var useEmulator = (process.env.NODE_ENV == 'development');
 
