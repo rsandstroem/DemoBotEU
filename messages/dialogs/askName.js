@@ -9,11 +9,11 @@ module.exports = {
         },
         function (session, results) {
             if (results.response) {
-                //session.userData.username = results.response;
-                session.userData.username = "Kumar Sarma";
+                //myCustomData.username = results.response
+                session.userData.username = results.response;
                 session.save();
-                console.log(session.userData.username);
                 session.endDialog("Hello %s, I am pleased to meet you.", session.userData.username);
+                //session.endDialog("Hello %s, I am pleased to meet you.", myCustomData.username);
             }
         }
     ]

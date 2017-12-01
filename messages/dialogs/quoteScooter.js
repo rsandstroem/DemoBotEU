@@ -14,7 +14,7 @@ module.exports = {
                 session.send(info.quote.text);
                 var username = session.userData.username;
                 const message = "How about another one " + username + "?";
-                builder.Prompts.confirm(session, message);
+                builder.Prompts.confirm(session, message, { listStyle: builder.ListStyle.button });
             });
         },
         function (session, args, results) {

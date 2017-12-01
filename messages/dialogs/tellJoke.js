@@ -14,7 +14,7 @@ module.exports = {
                 console.log(info);
                 session.send(info.value);
                 const message = "I have a better one. Do you want to hear it?";
-                builder.Prompts.confirm(session, message);
+                builder.Prompts.confirm(session, message, { listStyle: builder.ListStyle.button });
             });
         },
         function (session, args, results) {

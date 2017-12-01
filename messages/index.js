@@ -11,7 +11,7 @@ require('dotenv-extended').load();
 
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
-var path = require('path');
+//var path = require('path');
 
 // Connection to a remote NoSQL database Azure Table Storage
 var tableName = process.env['TableName'];
@@ -26,9 +26,9 @@ var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
-    appPassword: process.env['MicrosoftAppPassword'],
-    stateEndpoint: process.env['BotStateEndpoint'],
-    openIdMetadata: process.env['BotOpenIdMetadata']
+    appPassword: process.env['MicrosoftAppPassword']
+//    stateEndpoint: process.env['BotStateEndpoint'],
+//    openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
 //var bot = new builder.UniversalBot(connector).set('storage', new builder.MemoryBotStorage());
@@ -67,7 +67,7 @@ bot.dialog('/quoteScooter', di_quoteScooter.Dialog);
 // Starting a new conversation will trigger this message
 // updating following the guidance from MS
 bot.on('conversationUpdate',
-    function (message) {
+    function (message, session) {
 
         // is this system message that the bot joined?
         // we expect the bot to show up first, and this should trigger the message
