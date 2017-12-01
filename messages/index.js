@@ -65,24 +65,8 @@ bot.dialog('/tellJoke', di_tellJoke.Dialog);
 bot.dialog('/quoteScooter', di_quoteScooter.Dialog);
 
 // Starting a new conversation will trigger this message
-// updating following the guidance from MS
 bot.on('conversationUpdate',
     function (message) {
-
-        //         // is this system message that the bot joined?
-        //         // we expect the bot to show up first, and this should trigger the message
-        //         if (message.membersAdded[0].id != message.address.bot.id) {
-        //             // if it's not the bot, ignore the whole 'conversationUpdate'          
-        //             return; // !!! this still does not work on the higly async web chat, and the code after return is executed nonetheless !!!
-        //         };
-
-        //         var greetingText = 'Welcome to the DemoBot!';
-        //         var reply = new builder.Message()
-        //             .textFormat(builder.TextFormat.xml)
-        //             .address(message.address)
-        //             .text(greetingText);
-        //         bot.send(reply);
-        //         bot.beginDialog(message.address, '/');
         if (message.membersAdded) {
             message.membersAdded.forEach(function (identity) {
                 if (identity.id == message.address.bot.id) {
