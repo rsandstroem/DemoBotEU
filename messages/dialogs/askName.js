@@ -7,16 +7,14 @@ module.exports = {
         function (session, results) {
             builder.Prompts.text(session, 'What is your name?');
         },
-        function (session, results, next) {
+        function (session, results) {
             if (results.response) {
-                session.userData.username = results.response;
+                //session.userData.username = results.response;
+                session.userData.username = "Kumar Sarma";
                 session.save();
                 console.log(session.userData.username);
-                next();                
+                session.endDialog("Hello %s, I am pleased to meet you.", session.userData.username);
             }
-        },
-        function (session) {
-            session.endDialog("Hello %s, I am pleased to meet you.", session.userData.username);
         }
     ]
 }
