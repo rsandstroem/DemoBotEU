@@ -31,8 +31,10 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
-var bot = new builder.UniversalBot(connector).set('storage', new builder.MemoryBotStorage());
-//var bot = new builder.UniversalBot(connector).set('storage', tableStorage);
+//var bot = new builder.UniversalBot(connector).set('storage', new builder.MemoryBotStorage());
+var bot = new builder.UniversalBot(connector)
+    .set('storage', tableStorage)
+    .set('persistUserData', true);
 
 // Make sure you add code to validate these fields
 var luisAppId = process.env.LuisAppId;
@@ -93,7 +95,7 @@ intents.matches(/^version/i, function (session) {
 });
 
 intents.matches(/^user/i, function (session) {
-    session.send('You are %s.', session.privateConversationData.username);
+    session.send('You are %s.', session.userData.username);
 });
 
 intents.matches(/^joke/i, function (session) {
@@ -129,7 +131,7 @@ if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
     server.listen(3978, function () {
-        console.log('test bot endpont at http://localhost:3978/api/messages');
+        console.log('test bot endpoint at http://localhost:3978/api/messages');
     });
     server.post('/api/messages', connector.listen());
 } else {
