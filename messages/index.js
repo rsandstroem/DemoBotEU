@@ -90,7 +90,6 @@ bot.on('conversationUpdate',
                         .address(message.address)
                         .text("Welcome to the DemoBot!");
                     bot.send(reply);
-                    bot.beginDialog(message.address, '/');
                 }
             });
         }
@@ -115,7 +114,7 @@ intents.matches(/^version/i, function (session) {
 });
 
 intents.matches(/^user/i, function (session) {
-    session.send('You are %s.', session.userData.username);
+    session.send('You are %s.', session.privateConversationData.username);
 });
 
 intents.matches(/^joke/i, function (session) {

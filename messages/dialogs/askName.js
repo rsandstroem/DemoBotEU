@@ -9,9 +9,9 @@ module.exports = {
         },
         function (session, results) {
             if (results.response) {
-                session.userData.username = results.response;
+                session.privateConversationData.username = results.response;
                 session.save();
-                session.endDialog("Hello %s, I am pleased to meet you.", session.userData.username);
+                session.endDialog("Hello %s, I am pleased to meet you.", session.privateConversationData.username);
             }
         }
     ]
