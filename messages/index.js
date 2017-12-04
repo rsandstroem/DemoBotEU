@@ -58,11 +58,13 @@ var di_askGenericYesNo = require('./dialogs/askGenericYesNo');
 var di_askName = require('./dialogs/askName');
 var di_tellJoke = require('./dialogs/tellJoke');
 var di_quoteScooter = require('./dialogs/quoteScooter');
+var di_qna = require('./dialogs/qna');
 
 bot.dialog('/askGenericYesNo', di_askGenericYesNo.Dialog);
 bot.dialog('/askName', di_askName.Dialog);
 bot.dialog('/tellJoke', di_tellJoke.Dialog);
 bot.dialog('/quoteScooter', di_quoteScooter.Dialog);
+bot.dialog('/qna', di_qna.Dialog);
 
 // Starting a new conversation will trigger this message
 bot.on('conversationUpdate',
@@ -119,6 +121,11 @@ intents.matches('Joke', function (session) {
 
 intents.matches('Scooter', function (session) {
     session.beginDialog('/quoteScooter');
+});
+
+intents.matches('QnA', function (session, args) {
+    console.log("Received a qna intent");
+	session.beginDialog('/qna', {entities:args.entities});
 });
 
 // default back to root dialog
