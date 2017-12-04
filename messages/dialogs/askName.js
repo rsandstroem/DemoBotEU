@@ -11,7 +11,9 @@ module.exports = {
             if (results.response) {
                 session.privateConversationData.username = results.response;
                 session.save();
-                session.endDialog("Hello %s, I am pleased to meet you.", session.privateConversationData.username);
+                //session.endDialog("Hello %s, I am pleased to meet you.", session.privateConversationData.username);
+                session.send("Hello %s, I am pleased to meet you.", session.privateConversationData.username);
+		session.replaceDialog('/');
             }
         }
     ]

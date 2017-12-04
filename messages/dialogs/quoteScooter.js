@@ -7,7 +7,7 @@ module.exports = {
     Label: 'Quote Scooter',
     Dialog: [
         function (session, args) {
-            session.send("Quoting the guru:");
+            session.send("# Scooter! \n Quoting the guru:");
             request('https://howmuchisthe.fish/json/random', function (error, response, body) {
                 var info = JSON.parse(body);
                 console.log(info);
@@ -21,7 +21,9 @@ module.exports = {
             if (args.response) {
                 session.replaceDialog('/quoteScooter');
             } else {
-                session.endDialog("OK, enough Scooter for now.");
+                //session.endDialog("OK, enough Scooter for now.");
+		session.send("OK, enought Scooter for now.");
+		session.replaceDialog('/');
             }
         }
     ]

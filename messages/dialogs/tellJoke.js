@@ -22,7 +22,9 @@ module.exports = {
                 // Tell another one by restarting the dialog.
                 session.replaceDialog('/tellJoke');
             } else {
-                session.endDialog("You are right, " + session.userData.username + ", it was not that funny. Let's do something else.");
+                //session.endDialog("You are right, " + session.userData.username + ", it was not that funny. Let's do something else.");
+                session.send("You are right, " + session.privateConversationData.username + ", it was not that funny. Let's do something else.");
+		session.replaceDialog('/');
             }
         }
     ]

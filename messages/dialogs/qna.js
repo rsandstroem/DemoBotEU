@@ -33,7 +33,6 @@ module.exports = {
             session.endDialog('Sorry I do not know. I am only a simple bot for demonstration purposes.');
             // force to return, because even tho i call endDialog() above, function execution continues down below, which is not desired
             session.replaceDialog('/');
-            return;
         } else {
 
 		// here we will store a list of HeroCards, one entry is a full HeroCard object with picture etc..
@@ -66,7 +65,9 @@ module.exports = {
 	}
     }, // first QnA question ends
     function (session, results) {
-        session.endDialog("Thank you for your questions!")
+        //session.endDialog("Thank you for your questions!")
+	session.send("Thank you for your questions!");
+	session.replaceDialog('/');
     }
     ]
 }
