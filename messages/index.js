@@ -131,7 +131,7 @@ intents.matches('QnA', function (session, args) {
 // default back to root dialog
 intents.onDefault([(session) => {
     console.log("Default dialog");
-    session.send("Here is some helpful message... eventually");
+    session.send("This is a demonstration bot with limited functionality. To try it out, you can try to \n - Ask 'What is Deloitte?' (or EY, PwC, KPMG...)\n - Tell me a joke\n - Quote Scooter");
     session.beginDialog('/');
 }]);
 
