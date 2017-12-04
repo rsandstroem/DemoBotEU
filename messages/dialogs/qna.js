@@ -6,14 +6,11 @@ var glossaryLookup = require("../functions/glossaryLookup");
 // Dictionaries
 var qnaDB = require('../dictionaries/glossary');
 
-// Path to folder with images
-const pathToImages = 'http://kpmgvirtualtaxadvisor.azurewebsites.net/images/';
-
 module.exports = {
     Label: 'Question and answer dialog ',
     Dialog: [
     function (session, args, next) {
-        // LUIS recognizes wording like 'was ist ****' and brings it back under the name of Topic
+        // LUIS recognizes wording like 'what is ****' and brings it back under the name of Topic
         // we can manage the topic recognizing logic on LUIS portal
         
         // Problem with LUIS: it recognizes EACH WORD AS SEPARATE TOPIC: if you type "neue steuerreform", it will find "neue" und "steuer"
@@ -33,11 +30,11 @@ module.exports = {
 
         // if article not found, just end the dialog and return to parent
         if(!foundGlossaryArticle) {
-            session.endDialog('Leider weiss ich nicht, was es meint. Bitte fragen Sie mir etwas über die Reform.');
+            session.endDialog('Sorry I do not know. I am only a simple bot for demonstration purposes.');
             // force to return, because even tho i call endDialog() above, function execution continues down below, which is not desired
             session.replaceDialog('/');
             return;
-        }
+        } else {
 
 		// here we will store a list of HeroCards, one entry is a full HeroCard object with picture etc..
 		var HeroCardArray = [];
@@ -48,9 +45,9 @@ module.exports = {
 			cards.forEach(
 				function(card) {
                     var args = {};
-                    args.thumbURL = pathToImages + card;
-                    args.linkURL = pathToImages + card;
-                    args.linkText = 'Bild vergrössern';
+                    args.thumbURL = card;
+                    args.linkURL = card;
+                    args.linkText = 'Enlarge image';
 					HeroCardArray.push(makeherocard(session,args))
 				});
             // create message
@@ -60,14 +57,16 @@ module.exports = {
 			msg.attachments(HeroCardArray);
 		};
 
-        session.send('Sie möchten wissen was %s meint? Moment bitte, ich suche ein Antwort für Sie.', foundGlossaryArticle.key);
+        session.send('Did you want to know what %s means? Just a moment please, I am getting the answer for you.', foundGlossaryArticle.key);
         session.send(foundGlossaryArticle.object.longText);
         if(msg) {
             session.send(msg);
         };
+	next();
+	}
     }, // first QnA question ends
     function (session, results) {
-        session.endDialog("Danke für Ihre Fragen.")
+        session.endDialog("Thank you for your questions!")
     }
     ]
 }
