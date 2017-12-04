@@ -12,7 +12,7 @@ module.exports = {
                 var info = JSON.parse(body);
                 console.log(info);
                 session.send(info.quote.text);
-                var username = session.userData.username;
+                var username = session.privateDialogData.username;
                 const message = "How about another one " + username + "?";
                 builder.Prompts.confirm(session, message, { listStyle: builder.ListStyle.button });
             });
