@@ -90,7 +90,7 @@ intents.onBegin(function (session) {
         //session.send(greetingText);
         session.beginDialog('/askName');
     } else {
-        session.send("What else would you like to discuss?");
+        session.send("What would you like to discuss?");
     }
 });
 

@@ -24,7 +24,7 @@ module.exports = {
                 session.replaceDialog('/quoteScooter');
             } else {
                 //session.endDialog("OK, enough Scooter for now.");
-                session.send("OK, enought Scooter for now.");
+                session.send("OK, enough Scooter for now.");
                 session.replaceDialog('/');
             }
         }
