@@ -14,7 +14,9 @@ module.exports = {
                 session.send(info.quote.text);
                 var username = session.privateConversationData.username
                 const message = "How about another one " + username + "?";
-                builder.Prompts.confirm(session, message, { listStyle: builder.ListStyle.button });
+                builder.Prompts.confirm(session, message, {
+                    listStyle: builder.ListStyle.button
+                });
             });
         },
         function (session, args, results) {
@@ -22,8 +24,8 @@ module.exports = {
                 session.replaceDialog('/quoteScooter');
             } else {
                 //session.endDialog("OK, enough Scooter for now.");
-		session.send("OK, enought Scooter for now.");
-		session.replaceDialog('/');
+                session.send("OK, enought Scooter for now.");
+                session.replaceDialog('/');
             }
         }
     ]

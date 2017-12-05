@@ -13,7 +13,7 @@ module.exports = {
                 session.save();
                 //session.endDialog("Hello %s, I am pleased to meet you.", session.privateConversationData.username);
                 session.send("Hello %s, I am pleased to meet you.", session.privateConversationData.username);
-		session.replaceDialog('/');
+                session.replaceDialog('/');
             }
         }
     ]

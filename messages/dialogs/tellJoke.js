@@ -14,7 +14,9 @@ module.exports = {
                 console.log(info);
                 session.send(info.value);
                 const message = "I have a better one. Do you want to hear it?";
-                builder.Prompts.confirm(session, message, { listStyle: builder.ListStyle.button });
+                builder.Prompts.confirm(session, message, {
+                    listStyle: builder.ListStyle.button
+                });
             });
         },
         function (session, args, results) {
@@ -24,7 +26,7 @@ module.exports = {
             } else {
                 //session.endDialog("You are right, " + session.userData.username + ", it was not that funny. Let's do something else.");
                 session.send("You are right, " + session.privateConversationData.username + ", it was not that funny. Let's do something else.");
-		session.replaceDialog('/');
+                session.replaceDialog('/');
             }
         }
     ]

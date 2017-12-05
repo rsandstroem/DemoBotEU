@@ -125,7 +125,9 @@ intents.matches('Scooter', function (session) {
 
 intents.matches('QnA', function (session, args) {
     console.log("Received a qna intent");
-	session.beginDialog('/qna', {entities:args.entities});
+    session.beginDialog('/qna', {
+        entities: args.entities
+    });
 });
 
 // default back to root dialog

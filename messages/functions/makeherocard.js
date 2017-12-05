@@ -39,20 +39,18 @@
 		builder.Prompts.text(session, msg);
 */
 
-module.exports = function(session, args)
-{
-    var builder = require('botbuilder');
+module.exports = function (session, args) {
+	var builder = require('botbuilder');
 
+	var heroCard = new builder.HeroCard(session)
+		.title(args.title || "").text(args.text || "")
+		.images([
+			builder.CardImage.create(session, args.thumbURL)
+			.tap(builder.CardAction.showImage(session, args.linkURL))
+		])
+		.buttons([
+			builder.CardAction.openUrl(session, args.linkURL, args.linkText),
+		]);
 
-    var heroCard = new builder.HeroCard(session)
-        .title(args.title || "").text(args.text || "")
-        .images([
-            builder.CardImage.create(session, args.thumbURL)
-                .tap(builder.CardAction.showImage(session, args.linkURL))
-        ])
-        .buttons([
-            builder.CardAction.openUrl(session, args.linkURL, args.linkText),
-        ]);
-    
-    return heroCard;
+	return heroCard;
 }
